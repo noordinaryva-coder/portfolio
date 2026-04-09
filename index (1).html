@@ -1,0 +1,567 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Jean Laurente — AI Automation Specialist</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --black: #000000;
+  --black-soft: #0a0a0a;
+  --surface: #111111;
+  --surface2: #1a1a1a;
+  --border: rgba(255,255,255,0.08);
+  --border-h: rgba(255,255,255,0.15);
+  --white: #ffffff;
+  --dim: rgba(255,255,255,0.55);
+  --faint: rgba(255,255,255,0.32);
+  --amber: #f5a623;
+  --amber-l: #fbbf5a;
+  --teal: #00c9b7;
+  --green: #00d084;
+  --blue: #6ba4ff;
+  --red: #e05050;
+  --font: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+}
+
+html { scroll-behavior: smooth; }
+body {
+  background: var(--black);
+  color: var(--white);
+  font-family: var(--font);
+  font-weight: 400;
+  line-height: 1.6;
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* GRID */
+.grid-bg {
+  position: fixed; inset: 0; z-index: 0; pointer-events: none;
+  background-image:
+    linear-gradient(rgba(255,255,255,0.038) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,0.038) 1px, transparent 1px);
+  background-size: 72px 72px;
+}
+.grid-bg::before {
+  content: '+';
+  position: absolute;
+  top: 68px; left: calc(50% - 372px);
+  color: rgba(255,255,255,0.2);
+  font-size: 18px; line-height: 1;
+}
+.grid-bg::after {
+  content: '+';
+  position: absolute;
+  bottom: 0; right: calc(50% - 372px);
+  color: rgba(255,255,255,0.2);
+  font-size: 18px; line-height: 1;
+}
+
+/* NAV */
+nav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 200;
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 0 32px; height: 60px;
+  background: rgba(0,0,0,0.8);
+  backdrop-filter: blur(20px) saturate(180%);
+  border-bottom: 1px solid var(--border);
+}
+.nav-logo {
+  display: flex; align-items: center; gap: 9px;
+  font-size: 0.9rem; font-weight: 700; color: var(--white);
+  text-decoration: none; letter-spacing: -0.01em;
+}
+.nav-tri {
+  width: 20px; height: 20px;
+  background: var(--amber);
+  clip-path: polygon(50% 0%, 0% 100%, 100% 100%);
+}
+.nav-links { display: flex; align-items: center; gap: 28px; list-style: none; }
+.nav-links a { color: var(--dim); text-decoration: none; font-size: 0.83rem; font-weight: 400; transition: color .15s; }
+.nav-links a:hover { color: var(--white); }
+.nav-right { display: flex; align-items: center; gap: 10px; }
+
+.btn-ghost {
+  padding: 7px 15px; border-radius: 8px; font-size: 0.83rem; font-weight: 500;
+  color: var(--white); background: transparent; border: 1px solid var(--border);
+  cursor: pointer; text-decoration: none; font-family: var(--font);
+  transition: border-color .15s, background .15s;
+}
+.btn-ghost:hover { border-color: var(--border-h); background: rgba(255,255,255,0.05); }
+
+.btn-solid {
+  padding: 7px 15px; border-radius: 8px; font-size: 0.83rem; font-weight: 700;
+  color: var(--black); background: var(--white); border: 1px solid var(--white);
+  cursor: pointer; text-decoration: none; font-family: var(--font);
+  transition: background .15s, transform .12s;
+}
+.btn-solid:hover { background: rgba(255,255,255,0.88); transform: translateY(-1px); }
+
+/* HERO */
+.hero {
+  position: relative; min-height: 100vh;
+  display: flex; flex-direction: column;
+  align-items: center; justify-content: center;
+  text-align: center; padding: 80px 24px 0;
+  overflow: hidden; z-index: 1;
+}
+
+/* The big multicolor gradient blob — exact Vercel ref */
+.hero-blob {
+  position: absolute;
+  bottom: -80px; left: 50%; transform: translateX(-50%);
+  width: 960px; height: 600px;
+  pointer-events: none; z-index: 0;
+}
+.hero-blob::before {
+  content: '';
+  position: absolute; inset: 0;
+  background:
+    radial-gradient(ellipse 220px 340px at 18% 80%, rgba(0,185,175,0.82) 0%, transparent 62%),
+    radial-gradient(ellipse 160px 260px at 36% 58%, rgba(30,200,100,0.65) 0%, transparent 56%),
+    radial-gradient(ellipse 130px 200px at 50% 35%, rgba(210,190,0,0.55) 0%, transparent 52%),
+    radial-gradient(ellipse 220px 340px at 74% 78%, rgba(210,45,30,0.82) 0%, transparent 62%),
+    radial-gradient(ellipse 160px 220px at 88% 88%, rgba(160,15,15,0.65) 0%, transparent 56%);
+  filter: blur(6px);
+}
+.hero-blob::after {
+  content: '';
+  position: absolute; inset: 0;
+  background: radial-gradient(ellipse 100% 50% at 50% 100%, transparent 0%, var(--black) 70%);
+}
+
+/* triangle shape */
+
+
+.hero-content { position: relative; z-index: 3; max-width: 800px; }
+
+.hero-badge {
+  display: inline-flex; align-items: center; gap: 8px;
+  background: rgba(255,255,255,0.06);
+  border: 1px solid rgba(255,255,255,0.11);
+  color: var(--dim); font-size: 0.77rem; font-weight: 500;
+  letter-spacing: 0.02em; padding: 5px 14px; border-radius: 100px;
+  margin-bottom: 34px;
+  animation: up .7s ease both;
+}
+.hero-badge .dot {
+  width: 6px; height: 6px; border-radius: 50%; background: var(--green);
+  animation: blink 2.5s ease-in-out infinite;
+}
+@keyframes blink { 0%,100%{opacity:1} 50%{opacity:.2} }
+
+.hero h1 {
+  font-size: clamp(2.8rem, 7vw, 5.2rem);
+  font-weight: 800; line-height: 1.04;
+  letter-spacing: -0.04em; margin-bottom: 22px;
+  animation: up .7s .1s ease both;
+}
+.c-teal { color: var(--teal); }
+.c-amber { color: var(--amber); }
+.c-green { color: var(--green); }
+.c-blue { color: var(--blue); }
+
+.hero-sub {
+  font-size: 1rem; color: var(--dim);
+  max-width: 480px; margin: 0 auto 42px;
+  line-height: 1.72; font-weight: 400;
+  animation: up .7s .18s ease both;
+}
+
+.hero-btns {
+  display: flex; gap: 12px; justify-content: center; flex-wrap: wrap;
+  animation: up .7s .26s ease both;
+}
+
+/* PILL BUTTONS — exact Vercel style */
+.pill-white {
+  display: inline-flex; align-items: center; gap: 8px;
+  padding: 13px 28px; border-radius: 100px;
+  font-size: 0.9rem; font-weight: 700;
+  background: var(--white); color: var(--black);
+  border: none; text-decoration: none; cursor: pointer;
+  font-family: var(--font); letter-spacing: -0.01em;
+  box-shadow: 0 2px 20px rgba(255,255,255,0.18);
+  transition: background .15s, transform .12s, box-shadow .15s;
+}
+.pill-white:hover { background: rgba(255,255,255,0.88); transform: translateY(-2px); box-shadow: 0 6px 30px rgba(255,255,255,0.22); }
+
+.pill-dark {
+  display: inline-flex; align-items: center; gap: 8px;
+  padding: 13px 28px; border-radius: 100px;
+  font-size: 0.9rem; font-weight: 600;
+  background: rgba(255,255,255,0.07); color: var(--white);
+  border: 1px solid rgba(255,255,255,0.14);
+  text-decoration: none; cursor: pointer;
+  font-family: var(--font); letter-spacing: -0.01em;
+  backdrop-filter: blur(8px);
+  transition: background .15s, border-color .15s, transform .12s;
+}
+.pill-dark:hover { background: rgba(255,255,255,0.12); border-color: rgba(255,255,255,0.24); transform: translateY(-2px); }
+
+@keyframes up { from{opacity:0;transform:translateY(18px)} to{opacity:1;transform:none} }
+
+/* LAYOUT */
+.wrap { position: relative; z-index: 2; max-width: 1080px; margin: 0 auto; padding: 90px 32px; }
+.divider { height: 1px; background: var(--border); position: relative; z-index: 2; }
+
+.eyebrow {
+  display: inline-flex; align-items: center; gap: 10px;
+  font-size: 0.72rem; font-weight: 600;
+  letter-spacing: .12em; text-transform: uppercase;
+  color: var(--faint); margin-bottom: 18px;
+}
+.eyebrow .bar { width: 24px; height: 1px; background: rgba(255,255,255,0.22); }
+
+.sec-h {
+  font-size: clamp(1.9rem, 4vw, 2.9rem);
+  font-weight: 800; letter-spacing: -0.034em;
+  line-height: 1.1; margin-bottom: 14px;
+}
+.sec-p { color: var(--dim); font-size: 0.94rem; line-height: 1.76; max-width: 500px; margin-bottom: 50px; }
+
+/* PILLS ROW */
+.pills-row {
+  position: relative; z-index: 2;
+  max-width: 1080px; margin: 0 auto;
+  padding: 0 32px 72px;
+  display: flex; flex-wrap: wrap; gap: 8px;
+}
+.xpill {
+  display: inline-flex; align-items: center; gap: 7px;
+  padding: 7px 16px; border-radius: 100px;
+  font-size: 0.79rem; font-weight: 500;
+  background: rgba(255,255,255,0.04);
+  border: 1px solid var(--border); color: var(--dim);
+  transition: border-color .2s, color .2s, background .2s; cursor: default;
+}
+.xpill:hover { border-color: var(--border-h); color: var(--white); background: rgba(255,255,255,0.08); }
+.xdot { width: 5px; height: 5px; border-radius: 50%; }
+
+/* ABOUT */
+.about-grid { display: grid; grid-template-columns: 1.1fr 0.9fr; gap: 64px; align-items: start; }
+.about-p { color: var(--dim); font-size: 0.93rem; line-height: 1.8; margin-bottom: 16px; }
+.about-p strong { color: var(--white); font-weight: 600; }
+
+.stat-grid {
+  display: grid; grid-template-columns: 1fr 1fr;
+  gap: 1px; background: var(--border);
+  border: 1px solid var(--border); border-radius: 16px; overflow: hidden;
+}
+.stat-box { background: var(--surface); padding: 26px 22px; transition: background .2s; }
+.stat-box:hover { background: var(--surface2); }
+.stat-n { font-size: 2.2rem; font-weight: 800; letter-spacing: -0.04em; line-height: 1; margin-bottom: 6px; }
+.stat-l { font-size: 0.75rem; color: var(--faint); line-height: 1.45; }
+
+/* CASE CARDS */
+.case-card {
+  background: var(--surface); border: 1px solid var(--border);
+  border-radius: 16px; overflow: hidden; margin-bottom: 20px;
+  transition: border-color .25s, transform .25s;
+}
+.case-card:hover { border-color: var(--border-h); transform: translateY(-3px); }
+
+.case-head { padding: 36px 40px 28px; }
+.case-num { font-size: 0.69rem; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; color: var(--faint); margin-bottom: 12px; }
+.case-title { font-size: 1.55rem; font-weight: 800; letter-spacing: -0.03em; line-height: 1.2; margin-bottom: 12px; }
+.case-desc { font-size: 0.88rem; color: var(--dim); line-height: 1.72; max-width: 560px; margin-bottom: 20px; }
+
+.stacks { display: flex; flex-wrap: wrap; gap: 7px; }
+.stag { font-size: 0.74rem; font-weight: 600; padding: 4px 12px; border-radius: 100px; letter-spacing: .01em; }
+.t-amber { background: rgba(245,166,35,.1); color: var(--amber); border: 1px solid rgba(245,166,35,.22); }
+.t-green { background: rgba(0,208,132,.1); color: var(--green); border: 1px solid rgba(0,208,132,.2); }
+.t-teal  { background: rgba(0,201,183,.1); color: var(--teal);  border: 1px solid rgba(0,201,183,.2); }
+.t-white { background: rgba(255,255,255,.05); color: var(--dim); border: 1px solid var(--border); }
+.t-blue  { background: rgba(107,164,255,.1); color: var(--blue); border: 1px solid rgba(107,164,255,.22); }
+
+.flow-band {
+  border-top: 1px solid var(--border);
+  background: rgba(0,0,0,0.45);
+  padding: 24px 40px 28px;
+}
+.flow-ey { font-size: 0.68rem; font-weight: 600; letter-spacing: .12em; text-transform: uppercase; color: var(--faint); margin-bottom: 16px; }
+.flow-row { display: flex; align-items: center; flex-wrap: wrap; gap: 6px; }
+
+.fnode {
+  display: flex; align-items: center; gap: 7px;
+  background: var(--surface2); border: 1px solid var(--border);
+  border-radius: 8px; padding: 9px 14px;
+  font-size: 0.79rem; font-weight: 500; color: var(--dim);
+  white-space: nowrap; transition: border-color .2s, color .2s;
+}
+.fnode:hover { border-color: var(--border-h); color: var(--white); }
+.fnode.fa { border-color: rgba(245,166,35,.3); color: var(--amber-l); }
+.fnode.ft { border-color: rgba(0,201,183,.3); color: var(--teal); }
+.fnode.fg { border-color: rgba(0,208,132,.3); color: var(--green); }
+.farr { color: var(--faint); font-size: 0.85rem; flex-shrink: 0; }
+
+.impact-row { display: flex; gap: 1px; background: var(--border); }
+.impact-cell { flex: 1; background: var(--black-soft,#0a0a0a); padding: 22px 28px; min-width: 120px; }
+.imp-v { font-size: 1.65rem; font-weight: 800; letter-spacing: -0.04em; line-height: 1; margin-bottom: 5px; }
+.imp-l { font-size: 0.74rem; color: var(--faint); line-height: 1.4; }
+
+/* SERVICES */
+.svc-grid {
+  display: grid; grid-template-columns: repeat(3,1fr);
+  gap: 1px; background: var(--border);
+  border: 1px solid var(--border); border-radius: 16px; overflow: hidden;
+}
+.svc { background: var(--surface); padding: 32px 28px; transition: background .2s; }
+.svc:hover { background: var(--surface2); }
+.svc-icon { font-size: 1.4rem; margin-bottom: 14px; display: block; }
+.svc-name { font-size: 1rem; font-weight: 700; letter-spacing: -0.02em; margin-bottom: 9px; }
+.svc-desc { font-size: 0.82rem; color: var(--faint); line-height: 1.65; }
+
+/* CTA */
+.cta {
+  position: relative; text-align: center;
+  padding: 110px 32px 100px;
+  overflow: hidden; z-index: 2;
+}
+.cta-glow {
+  position: absolute; inset: 0; pointer-events: none;
+  background:
+    radial-gradient(ellipse 380px 280px at 28% 55%, rgba(0,185,175,.11) 0%, transparent 65%),
+    radial-gradient(ellipse 300px 240px at 74% 48%, rgba(245,166,35,.09) 0%, transparent 60%);
+}
+.cta-in { position: relative; z-index: 1; max-width: 660px; margin: 0 auto; }
+.cta-h { font-size: clamp(2.4rem,5.5vw,4rem); font-weight: 800; letter-spacing: -0.042em; line-height: 1.04; margin-bottom: 20px; }
+.cta-sub { font-size: 0.97rem; color: var(--dim); line-height: 1.7; margin-bottom: 40px; }
+
+.cta-links { display: flex; align-items: center; justify-content: center; gap: 24px; margin-top: 44px; flex-wrap: wrap; }
+.clink { display: flex; align-items: center; gap: 8px; color: var(--dim); text-decoration: none; font-size: 0.85rem; font-weight: 500; transition: color .15s; }
+.clink:hover { color: var(--white); }
+.sep { color: var(--border); }
+
+footer {
+  border-top: 1px solid var(--border);
+  padding: 28px 32px;
+  display: flex; align-items: center; justify-content: space-between;
+  font-size: 0.77rem; color: var(--faint);
+  position: relative; z-index: 2;
+}
+.foot-brand { font-weight: 700; color: var(--white); font-size: 0.85rem; display: flex; align-items: center; gap: 8px; }
+.foot-tri { width: 15px; height: 15px; background: var(--amber); clip-path: polygon(50% 0%,0% 100%,100% 100%); }
+
+/* reveal */
+.rv { opacity:0; transform:translateY(20px); transition: opacity .55s ease, transform .55s ease; }
+.rv.in { opacity:1; transform:none; }
+
+@media(max-width:768px) {
+  nav { padding: 0 16px; }
+  .nav-links { display: none; }
+  .wrap { padding: 60px 20px; }
+  .pills-row { padding: 0 20px 48px; }
+  .about-grid { grid-template-columns: 1fr; gap: 40px; }
+  .svc-grid { grid-template-columns: 1fr; }
+  .case-head { padding: 24px 20px 20px; }
+  .flow-band { padding: 18px 20px 22px; }
+  .impact-row { flex-direction: column; }
+  .cta { padding: 70px 20px; }
+  footer { flex-direction: column; gap: 10px; text-align: center; }
+}
+</style>
+</head>
+<body>
+
+<div class="grid-bg"></div>
+
+<!-- NAV -->
+<nav>
+  <a href="#" class="nav-logo"><span class="nav-tri"></span>Jean Laurente</a>
+  <ul class="nav-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#work">Work</a></li>
+    <li><a href="#services">Services</a></li>
+  </ul>
+  <div class="nav-right">
+    <a href="mailto:noordinaryva@gmail.com" class="btn-ghost">Email Me</a>
+    <a href="https://calendar.google.com/calendar/u/0/appointments/schedules/AcZssZ3dNA3GlgTDwNd9jaX_mniFPfYXYm-FuNUzNWWa1aSfbiKG41fMSsSA-V93eqPxEWK7BTN1-2zo?gv=true" target="_blank" class="btn-solid">Book a Call</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-blob"></div>
+
+
+  <div class="hero-content">
+    <div class="hero-badge"><span class="dot"></span>Available for Projects · Cebu City, PH</div>
+    <h1>Build workflows that<br><span class="c-teal">think</span> for <span class="c-amber">themselves.</span></h1>
+    <p class="hero-sub">AI automation specialist helping teams eliminate manual bottlenecks — from intelligent routing systems to document generation that runs while you sleep.</p>
+    <div class="hero-btns">
+      <a href="https://calendar.google.com/calendar/u/0/appointments/schedules/AcZssZ3dNA3GlgTDwNd9jaX_mniFPfYXYm-FuNUzNWWa1aSfbiKG41fMSsSA-V93eqPxEWK7BTN1-2zo?gv=true" target="_blank" class="pill-white">▲ Book a Free Call</a>
+      <a href="#work" class="pill-dark">View My Work</a>
+    </div>
+  </div>
+</div>
+
+<!-- EXPERTISE -->
+<div class="pills-row">
+  <div class="xpill"><span class="xdot" style="background:var(--amber)"></span>AI Automation</div>
+  <div class="xpill"><span class="xdot" style="background:var(--teal)"></span>n8n Workflows</div>
+  <div class="xpill"><span class="xdot" style="background:var(--green)"></span>Project Management</div>
+  <div class="xpill"><span class="xdot" style="background:var(--blue)"></span>Learning & Development</div>
+  <div class="xpill"><span class="xdot" style="background:rgba(255,255,255,.4)"></span>OpenAI Integration</div>
+  <div class="xpill"><span class="xdot" style="background:var(--green)"></span>Google Workspace APIs</div>
+  <div class="xpill"><span class="xdot" style="background:var(--teal)"></span>Slack Automation</div>
+  <div class="xpill"><span class="xdot" style="background:var(--amber)"></span>Process Design</div>
+</div>
+
+<div class="divider"></div>
+
+<!-- ABOUT -->
+<div class="wrap" id="about">
+  <div class="about-grid">
+    <div>
+      <div class="eyebrow"><span class="bar"></span>About</div>
+      <h2 class="sec-h">Turning complex processes into<br><span class="c-teal">elegant flows</span></h2>
+      <p class="about-p">I'm Jean — an AI Automation Specialist, Project Manager, and L&D expert based in Cebu City. I design intelligent workflows that remove the manual labor from complex business processes.</p>
+      <p class="about-p">With a background spanning <strong>learning & development, operations, and project management</strong>, I bring a rare combination: I understand how humans work — and how to make AI work alongside them.</p>
+      <p class="about-p">My sweet spot is the intersection of <strong>process design and automation</strong>: finding exactly where human bottlenecks live, then building flows that handle the repetitive work without the team feeling the seams.</p>
+    </div>
+    <div class="stat-grid rv">
+      <div class="stat-box"><div class="stat-n" style="color:var(--amber)">2+</div><div class="stat-l">Years building AI automation systems</div></div>
+      <div class="stat-box"><div class="stat-n" style="color:var(--teal)">n8n</div><div class="stat-l">Primary workflow automation platform</div></div>
+      <div class="stat-box"><div class="stat-n" style="color:var(--green)">80%</div><div class="stat-l">Reduction in manual routing time</div></div>
+      <div class="stat-box"><div class="stat-n" style="color:var(--blue)">3×</div><div class="stat-l">Faster AI document generation</div></div>
+    </div>
+  </div>
+</div>
+
+<div class="divider"></div>
+
+<!-- CASE STUDIES -->
+<div class="wrap" id="work">
+  <div class="eyebrow"><span class="bar"></span>Case Studies</div>
+  <h2 class="sec-h">Automation <span class="c-amber">in action</span></h2>
+  <p class="sec-p">Two real flows I designed and shipped — from problem definition to deployed automation.</p>
+
+  <div class="case-card rv">
+    <div class="case-head">
+      <div class="case-num">Flow 01</div>
+      <div class="case-title">Intelligent PM Routing System</div>
+      <p class="case-desc">Automatically triages incoming project requests and routes them to the right project manager based on capacity, expertise, and priority — eliminating a daily manual coordination process entirely.</p>
+      <div class="stacks">
+        <span class="stag t-amber">n8n</span>
+        <span class="stag t-green">Google Sheets</span>
+        <span class="stag t-teal">Slack</span>
+        <span class="stag t-white">Routing Logic</span>
+      </div>
+    </div>
+    <div class="flow-band">
+      <div class="flow-ey">Automation Flow</div>
+      <div class="flow-row">
+        <div class="fnode">📥 Request Trigger</div>
+        <div class="farr">→</div>
+        <div class="fnode fg">📊 Sheets Lookup</div>
+        <div class="farr">→</div>
+        <div class="fnode fa">🧠 Routing Logic</div>
+        <div class="farr">→</div>
+        <div class="fnode">👤 PM Assignment</div>
+        <div class="farr">→</div>
+        <div class="fnode ft">💬 Slack Alert</div>
+      </div>
+    </div>
+    <div class="impact-row">
+      <div class="impact-cell"><div class="imp-v" style="color:var(--amber)">80%</div><div class="imp-l">Reduction in manual routing time</div></div>
+      <div class="impact-cell"><div class="imp-v" style="color:var(--green)">~0</div><div class="imp-l">Misrouted requests post-deploy</div></div>
+      <div class="impact-cell"><div class="imp-v" style="color:var(--teal)">Live</div><div class="imp-l">Slack alerts to the right PM instantly</div></div>
+    </div>
+  </div>
+
+  <div class="case-card rv">
+    <div class="case-head">
+      <div class="case-num">Flow 02</div>
+      <div class="case-title">AI-Powered PS Doc Builder</div>
+      <p class="case-desc">Generates fully-formatted professional services documents using OpenAI — pulling structured data, drafting content, and delivering a polished Google Doc to the team with zero manual writing required.</p>
+      <div class="stacks">
+        <span class="stag t-amber">n8n</span>
+        <span class="stag t-white">OpenAI</span>
+        <span class="stag t-blue">Google Docs API</span>
+        <span class="stag t-teal">Slack</span>
+      </div>
+    </div>
+    <div class="flow-band">
+      <div class="flow-ey">Automation Flow</div>
+      <div class="flow-row">
+        <div class="fnode">🗂️ Data Input</div>
+        <div class="farr">→</div>
+        <div class="fnode fa">✨ OpenAI Draft</div>
+        <div class="farr">→</div>
+        <div class="fnode">✅ Review</div>
+        <div class="farr">→</div>
+        <div class="fnode fg">📄 Google Docs API</div>
+        <div class="farr">→</div>
+        <div class="fnode ft">💬 Slack Delivery</div>
+      </div>
+    </div>
+    <div class="impact-row">
+      <div class="impact-cell"><div class="imp-v" style="color:var(--amber)">3×</div><div class="imp-l">Faster than manual doc creation</div></div>
+      <div class="impact-cell"><div class="imp-v" style="color:var(--green)">100%</div><div class="imp-l">Consistent formatting every time</div></div>
+      <div class="impact-cell"><div class="imp-v" style="color:var(--teal)">Auto</div><div class="imp-l">Delivered via Slack instantly</div></div>
+    </div>
+  </div>
+</div>
+
+<div class="divider"></div>
+
+<!-- SERVICES -->
+<div class="wrap" id="services">
+  <div class="eyebrow"><span class="bar"></span>Services</div>
+  <h2 class="sec-h">What I can <span class="c-green">build for you</span></h2>
+  <p class="sec-p">From scoping to deployment — I handle the full automation lifecycle.</p>
+  <div class="svc-grid rv">
+    <div class="svc"><span class="svc-icon">⚙️</span><div class="svc-name">Workflow Automation</div><p class="svc-desc">End-to-end n8n workflows that connect your tools, handle logic, and run without babysitting.</p></div>
+    <div class="svc"><span class="svc-icon">🤖</span><div class="svc-name">AI Integration</div><p class="svc-desc">OpenAI-powered flows that generate content, classify inputs, and make smart decisions at scale.</p></div>
+    <div class="svc"><span class="svc-icon">📋</span><div class="svc-name">Process Design</div><p class="svc-desc">Audit your current process, identify bottlenecks, and design a flow that actually solves them.</p></div>
+    <div class="svc"><span class="svc-icon">📊</span><div class="svc-name">PM Systems</div><p class="svc-desc">Intelligent routing, capacity tracking, and status reporting — so PMs focus on managing, not admin.</p></div>
+    <div class="svc"><span class="svc-icon">📚</span><div class="svc-name">L&D Automation</div><p class="svc-desc">Learning workflows, onboarding sequences, and training pipelines with AI at the core.</p></div>
+    <div class="svc"><span class="svc-icon">🔔</span><div class="svc-name">Slack & Notifications</div><p class="svc-desc">Real-time alerts, approvals, and updates — delivered to the right person at the right moment.</p></div>
+  </div>
+</div>
+
+<div class="divider"></div>
+
+<!-- CTA -->
+<div class="cta" id="contact">
+  <div class="cta-glow"></div>
+  <div class="cta-in">
+    <div class="eyebrow" style="justify-content:center;margin-bottom:20px;"><span class="bar"></span>Let's Work Together<span class="bar"></span></div>
+    <h2 class="cta-h">Ready to automate<br>the <span class="c-teal">right</span> <span class="c-amber">things?</span></h2>
+    <p class="cta-sub">If you have a process that's eating your team's time, I'd love to hear about it. Let's map it out and build something that runs itself.</p>
+    <div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap;">
+      <a href="https://calendar.google.com/calendar/u/0/appointments/schedules/AcZssZ3dNA3GlgTDwNd9jaX_mniFPfYXYm-FuNUzNWWa1aSfbiKG41fMSsSA-V93eqPxEWK7BTN1-2zo?gv=true" target="_blank" class="pill-white">▲ Book a Free Call</a>
+      <a href="mailto:noordinaryva@gmail.com" class="pill-dark">Send an Email</a>
+    </div>
+    <div class="cta-links">
+      <a href="mailto:noordinaryva@gmail.com" class="clink">✉ noordinaryva@gmail.com</a>
+      <span class="sep">|</span>
+      <a href="https://linkedin.com/in/jona-jean-laurente-756b1322a" target="_blank" class="clink">in LinkedIn</a>
+      <span class="sep">|</span>
+      <span class="clink" style="cursor:default;">📍 Cebu City, Philippines</span>
+    </div>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="foot-brand"><span class="foot-tri"></span>Jean Laurente</div>
+  <div>AI Automation · Project Management · L&D</div>
+  <div>© 2025</div>
+</footer>
+
+<script>
+  const obs = new IntersectionObserver(entries => {
+    entries.forEach(e => { if(e.isIntersecting){ e.target.classList.add('in'); obs.unobserve(e.target); } });
+  }, { threshold: 0.08, rootMargin: '0px 0px -30px 0px' });
+  document.querySelectorAll('.rv').forEach(el => obs.observe(el));
+</script>
+</body>
+</html>
