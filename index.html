@@ -255,6 +255,50 @@ footer { border-top: 1px solid var(--border); padding: 28px 32px; display: flex;
 .social-link.sl-blue:hover { border-color: rgba(107,164,255,0.45); background: rgba(107,164,255,0.06); }
 .social-link.sl-fb { border-color: rgba(100,149,237,0.2); color: #6495ed; }
 .social-link.sl-fb:hover { border-color: rgba(100,149,237,0.45); background: rgba(100,149,237,0.06); }
+
+/* ── GLOBAL HOVER LIFT ── */
+.case-card, .kudos-card, .cred-card, .svc, .stat-box,
+.social-link, .xpill, .fnode, .impact-cell,
+.pill-white, .pill-dark, .video-hero-btn,
+.btn-ghost, .btn-solid, .resume-btn, .cred-link {
+  transition: transform .2s ease, box-shadow .2s ease, border-color .2s ease, background .2s ease, color .2s ease !important;
+}
+.case-card:hover, .kudos-card:hover, .cred-card:hover {
+  transform: translateY(-6px) !important;
+  box-shadow: 0 12px 40px rgba(0,0,0,0.5) !important;
+}
+.svc:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 24px rgba(0,0,0,0.4);
+}
+.stat-box:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 6px 20px rgba(0,0,0,0.35);
+}
+.xpill:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+}
+.fnode:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+}
+.pill-white:hover, .btn-solid:hover {
+  transform: translateY(-3px) !important;
+  box-shadow: 0 8px 24px rgba(255,255,255,0.2) !important;
+}
+.pill-dark:hover, .video-hero-btn:hover, .btn-ghost:hover, .resume-btn:hover {
+  transform: translateY(-3px) !important;
+  box-shadow: 0 6px 20px rgba(0,0,0,0.4) !important;
+}
+.impact-cell:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 16px rgba(0,0,0,0.3);
+  background: var(--surface) !important;
+  cursor: default;
+}
+/* Cursor pointer on all clickable elements */
+a, button, .xpill { cursor: pointer; }
 </style>
 </head>
 <body>
